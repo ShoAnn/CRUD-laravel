@@ -1,11 +1,9 @@
-<aside class="h-screen sticky top-0 p-5 bg-gray-100">
-    <div class="h-full">
-        <ul class="list-none">
-            <li class="pb-5">Lorem ipsum dolor, sit amet consectetur adipisicing elit. </li>
-            <li class="pb-5">Lorem ipsum dolor, sit amet consectetur adipisicing elit. </li>
-            <li class="pb-5">Lorem ipsum dolor, sit amet consectetur adipisicing elit. </li>
-            <li class="pb-5">Lorem ipsum dolor, sit amet consectetur adipisicing elit. </li>
-            <li class="pb-5">Lorem ipsum dolor, sit amet consectetur adipisicing elit. </li>
-        </ul>
-    </div>
+<aside class="h-full sm:sticky sm:top-10  bg-gray-400 rounded-md">
+    <ul class="list-none p-3">
+        <li class="pb-5">Lorem ipsum dolor, sit amet consectetur adipisicing elit. </li>
+        <li class="pb-5">Lorem ipsum dolor, sit amet consectetur adipisicing elit. </li>
+        <li class="pb-5">Lorem ipsum dolor, sit amet consectetur adipisicing elit. </li>
+        <li class="pb-5">Lorem ipsum dolor, sit amet consectetur adipisicing elit. </li>
+        <li class="pb-5">Lorem ipsum dolor, sit amet consectetur adipisicing elit. </li>
+    </ul>
 </aside>

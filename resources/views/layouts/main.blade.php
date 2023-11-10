@@ -13,14 +13,16 @@
 </head>
 
 <body>
-    <div class="container mx-auto p">
+    <div class="container mx-auto">
         @include('layouts.partials.navbar')
-        <div class="flex flex-row">
-            <div class="sidebar basis-1/4">
-                @include('layouts.partials.sidebar')
-            </div>
-            <div class="content basis-3/4">
-                @yield('content')
+        <div class="grid grid-cols-1 gap-3 sm:grid-cols-4 m-5 ">
+            @include('layouts.partials.sidebar')
+
+            <div class="content col-span-3 ">
+                <div class="flex flex-col items-center gap-3 justify-center">
+                    <h1 class="text-6xl font-bold text-gray-700 pb-3">@yield('heading')</h1>
+                    @yield('content')
+                </div>
             </div>
         </div>
     </div>
