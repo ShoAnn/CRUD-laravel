@@ -20,7 +20,7 @@
 
             <div class="content col-span-3 ">
                 <div class="flex flex-col items-center gap-3 justify-center">
-                    <h1 class="text-6xl font-bold text-gray-700 pb-3">@yield('heading')</h1>
+                    <h1 class="text-6xl font-bold text-gray-700 pb-3 ">@yield('heading')</h1>
                     @yield('content')
                 </div>
             </div>
