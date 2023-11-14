@@ -15,6 +15,9 @@ use App\Http\Controllers\ProductController;
 
 Route::get('/', function () {
     return view('pages.static.home');
-});
+})->name('dashboard');
+Route::redirect('/dashboard', '/');
 
 Route::get('/product', [ProductController::class, 'index'])->name('product.index');
+Route::get('/product/add', [ProductController::class, 'add'])->name('product.add');
+Route::get('/product/edit', [ProductController::class, 'edit'])->name('product.edit');
