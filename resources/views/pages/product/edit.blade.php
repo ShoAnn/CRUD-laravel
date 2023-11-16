@@ -10,13 +10,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Project Edit</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Project Edit</li>
-                        </ol>
+                        <h1>Edit Produk</h1>
                     </div>
                 </div>
             </div><!-- /.container-fluid -->
@@ -30,38 +24,71 @@
                         <div class="card-header">
                             <h3 class="card-title">General</h3>
 
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                            </div>
                         </div>
                         <div class="card-body">
-                            <div class="form-group">
-                                <label for="inputName">Project Name</label>
-                                <input type="text" id="inputName" class="form-control" value="AdminLTE">
-                            </div>
-                            <div class="form-group">
-                                <label for="inputDescription">Project Description</label>
-                                <textarea id="inputDescription" class="form-control" rows="4">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terr.</textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputStatus">Status</label>
-                                <select id="inputStatus" class="form-control custom-select">
-                                    <option disabled>Select one</option>
-                                    <option>On Hold</option>
-                                    <option>Canceled</option>
-                                    <option selected>Success</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputClientCompany">Client Company</label>
-                                <input type="text" id="inputClientCompany" class="form-control" value="Deveint Inc">
-                            </div>
-                            <div class="form-group">
-                                <label for="inputProjectLeader">Project Leader</label>
-                                <input type="text" id="inputProjectLeader" class="form-control" value="Tony Chicken">
-                            </div>
+                            <form action="{{ route('product.update', $product->product_id) }}" method="POST">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="inputName" class="form-label">Nama Produk</label>
+                                    <input type="text" id="inputName" class="form-control" name="product_name"
+                                        value="{{ $product->product_name }}">
+                                </div>
+                                <div class="from-group">
+                                    <label for="inputCategory" class="form-label">Kategori</label>
+                                    <select id="inputCategory" class="form-control custom-select" name="category_id">
+                                        <option selected disabled>Select one</option>
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}"
+                                                {{ $category->id == $product->category_id ? 'selected' : '' }}>
+                                                {{ $category->category_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputDescription" class="form-label">Deskripsi</label>
+                                    <textarea id="inputDescription" class="form-control" rows="4" name="description">{{ $product->description }}</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPrice" class="form-label">Harga</label>
+                                    <input type="text" id="inputPrice" class="form-control" name="price"
+                                        value="{{ $product->price }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputUnit" class="form-label">Satuan</label>
+                                    <input type="text" id="inputUnit" class="form-control" name="unit"
+                                        value="{{ $product->unit }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputImage" class="form-label">Gambar</label>
+                                    <input type="file" id="inputImage" class="form-control" name="image" multiple>
+                                </div>
+
+                                @if (count($product->image) > 0)
+                                    <div class="form-group">
+                                        <label for="currentImages" class="form-label">Gambar saat ini</label>
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Gambar</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            {{-- <tbody>
+                                                @foreach ($product->image as $image)
+                                                    <tr>
+                                                        <td><img src="{{ asset('template/' . $image) }}" alt=""
+                                                                width="100"></td>
+                                                        <td>
+
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody> --}}
+                                        </table>
+                                    </div>
+                                @endif
+
+                            </form>
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -70,103 +97,10 @@
                 <div class="col-md-6">
                     <div class="card card-secondary">
                         <div class="card-header">
-                            <h3 class="card-title">Budget</h3>
-
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                            </div>
+                            <h3 class="card-title">image</h3>
                         </div>
                         <div class="card-body">
-                            <div class="form-group">
-                                <label for="inputEstimatedBudget">Estimated budget</label>
-                                <input type="number" id="inputEstimatedBudget" class="form-control" value="2300"
-                                    step="1">
-                            </div>
-                            <div class="form-group">
-                                <label for="inputSpentBudget">Total amount spent</label>
-                                <input type="number" id="inputSpentBudget" class="form-control" value="2000"
-                                    step="1">
-                            </div>
-                            <div class="form-group">
-                                <label for="inputEstimatedDuration">Estimated project duration</label>
-                                <input type="number" id="inputEstimatedDuration" class="form-control" value="20"
-                                    step="0.1">
-                            </div>
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
-                    <!-- /.card -->
-                    <div class="card card-info">
-                        <div class="card-header">
-                            <h3 class="card-title">Files</h3>
 
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body p-0">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>File Name</th>
-                                        <th>File Size</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                    <tr>
-                                        <td>Functional-requirements.docx</td>
-                                        <td>49.8005 kb</td>
-                                        <td class="text-right py-0 align-middle">
-                                            <div class="btn-group btn-group-sm">
-                                                <a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
-                                                <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
-                                            </div>
-                                        </td>
-                                    <tr>
-                                        <td>UAT.pdf</td>
-                                        <td>28.4883 kb</td>
-                                        <td class="text-right py-0 align-middle">
-                                            <div class="btn-group btn-group-sm">
-                                                <a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
-                                                <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
-                                            </div>
-                                        </td>
-                                    <tr>
-                                        <td>Email-from-flatbal.mln</td>
-                                        <td>57.9003 kb</td>
-                                        <td class="text-right py-0 align-middle">
-                                            <div class="btn-group btn-group-sm">
-                                                <a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
-                                                <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
-                                            </div>
-                                        </td>
-                                    <tr>
-                                        <td>Logo.png</td>
-                                        <td>50.5190 kb</td>
-                                        <td class="text-right py-0 align-middle">
-                                            <div class="btn-group btn-group-sm">
-                                                <a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
-                                                <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
-                                            </div>
-                                        </td>
-                                    <tr>
-                                        <td>Contract-10_12_2014.docx</td>
-                                        <td>44.9715 kb</td>
-                                        <td class="text-right py-0 align-middle">
-                                            <div class="btn-group btn-group-sm">
-                                                <a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
-                                                <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
-                                            </div>
-                                        </td>
-
-                                </tbody>
-                            </table>
                         </div>
                         <!-- /.card-body -->
                     </div>

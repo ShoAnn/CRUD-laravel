@@ -10,13 +10,15 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Projects</h1>
+                        <h1>Products</h1>
                     </div>
                     <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Projects</li>
-                        </ol>
+                        <div class="float-right">
+                            <a href="{{ route('product.add') }}" class="btn btn-success">
+                                <i class="fas fa-plus-circle"></i>
+                                Tambah Produk
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div><!-- /.container-fluid -->
@@ -36,6 +38,7 @@
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
+                                            <th>No</th>
                                             <th>Nama Produk</th>
                                             <th>Deskripsi</th>
                                             <th>Harga</th>
@@ -44,20 +47,66 @@
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    @foreach ($products as $col => $value)
+                                    @foreach ($products as $product)
                                         <tbody>
                                             <tr>
-                                                <td>{{ $value->product_name }}</td>
-                                                <td>{{ $value->description }}</td>
-                                                <td>{{ $value->price }}</td>
-                                                <td>{{ $value->stock }}</td>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $product->product_name }}</td>
+                                                <td>{{ $product->description }}</td>
+                                                <td>{{ $product->price }}</td>
+                                                <td>{{ $product->stock }}</td>
+                                                <td>
+                                                    @foreach ($images as $image)
+                                                        @if ($image->product_id == $product->product_id)
+                                                            <img src="{{ asset('storage/' . $image->file_name) }}"
+                                                                alt="" width="50px">
+                                                        @endif
+                                                    @endforeach
+                                                </td>
+                                                <td>
+                                                    <a href="{{ route('product.edit', $product->product_id) }}"
+                                                        class="btn btn-warning w-100 mb-2">Edit</a>
+                                                    <button type="button" class="btn btn-danger w-100" data-toggle="modal"
+                                                        data-target="#deleteModal">
+                                                        Delete
+                                                    </button>
+                                                    {{-- modal --}}
+                                                    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
+                                                        aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="deleteModalLabel">Konfirmasi
+                                                                        Hapus Produk</h5>
+                                                                    <button type="button" class="close"
+                                                                        data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                        data-dismiss="modal">Close</button>
+                                                                    <form
+                                                                        action="{{ route('product.destroy', $product->product_id) }}"
+                                                                        method="POST">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit"
+                                                                            class="btn btn-danger">Hapus</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                             </tr>
                                         </tbody>
                                     @endforeach
-                                    <tfoot></tfoot>
                                 </table>
                             </div>
                             <!-- /.card-body -->
+                            <div class="card-footer">
+                                {{ $products->links() }}
+                            </div>
                         </div>
                         <!-- /.card -->
                     </div>
@@ -70,5 +119,7 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
+
+
 
 @endsection
