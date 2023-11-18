@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->integer('order_id');
             $table->decimal('amount')->default(0);
             $table->string('payment_method');
             $table->string('payment_status');
