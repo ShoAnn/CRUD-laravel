@@ -2,10 +2,32 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends Model
 {
     use HasFactory;
+
+    public function inventory(): HasOne
+    {
+        return $this->hasOne(ProductInventory::class);
+    }
+
+    public function category(): HasOne
+    {
+        return $this->hasOne(ProductCategory::class);
+    }
+
+    public function discount(): HasOne
+    {
+        return $this->hasOne(ProductDiscount::class);
+    }
+
+    public function orderItem(): HasMany
+    {
+        return $this->hasMany(OrderItem::class);
+    }
 }
