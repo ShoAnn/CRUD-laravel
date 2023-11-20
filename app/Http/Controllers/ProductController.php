@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\View\View;
@@ -12,9 +13,13 @@ class ProductController extends Controller
     // show all products
     public function index(): View
     {
-        $data = DB::table('products')->paginate(10);
-        $images = DB::table('product_image')->get();
-        return view('pages.product.index', ['products' => $data], ['images' => $images]);
+        // $data = DB::table('products')->paginate(10);
+        // $images = DB::table('product_image')->get();
+        // return view('pages.product.index', ['products' => $data], ['images' => $images]);
+
+        return view('pages.product.index', [
+            'products' => Product::with('images')->paginate(10)
+        ]);
     }
 
     public function add()

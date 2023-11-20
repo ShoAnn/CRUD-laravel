@@ -10,6 +10,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Product extends Model
 {
     use HasFactory;
+    
+    public function images(): HasMany
+    {
+        return $this->hasMany(ProductImage::class);
+    }
 
     public function inventory(): HasOne
     {
