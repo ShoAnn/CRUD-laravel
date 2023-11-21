@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('sku');
             $table->text('description')->nullable();
-            $table->decimal('price');
+            $table->decimal('price', 12, 2);
             $table->unsignedBigInteger('product_category_id');
             $table->unsignedBigInteger('product_discount_id')->nullable();
             $table->timestamps();

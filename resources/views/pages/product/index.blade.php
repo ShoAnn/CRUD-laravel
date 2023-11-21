@@ -50,21 +50,16 @@
                                     @foreach ($products as $product)
                                         <tbody>
                                             <tr>
+
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $product->product_name }}</td>
+                                                <td>{{ $product->name }}</td>
                                                 <td>{{ $product->description }}</td>
                                                 <td>{{ $product->price }}</td>
-                                                <td>{{ $product->stock }}</td>
+                                                <td>{{ $product->inventory->quantity }}</td>
                                                 <td>
-                                                    @foreach ($images as $image)
-                                                        @if ($image->product_id == $product->product_id)
-                                                            <img src="{{ asset('storage/' . $image->file_name) }}"
-                                                                alt="" width="50px">
-                                                        @endif
-                                                    @endforeach
                                                 </td>
                                                 <td>
-                                                    <a href="{{ route('product.edit', $product->product_id) }}"
+                                                    <a href="{{ route('product.edit', ['id' => $product->id]) }}"
                                                         class="btn btn-warning w-100 mb-2">Edit</a>
                                                     <button type="button" class="btn btn-danger w-100" data-toggle="modal"
                                                         data-target="#deleteModal">
@@ -87,7 +82,7 @@
                                                                     <button type="button" class="btn btn-secondary"
                                                                         data-dismiss="modal">Close</button>
                                                                     <form
-                                                                        action="{{ route('product.destroy', $product->product_id) }}"
+                                                                        action="{{ route('product.destroy', ['id' => $product->id]) }}"
                                                                         method="POST">
                                                                         @csrf
                                                                         @method('DELETE')
@@ -104,9 +99,9 @@
                                 </table>
                             </div>
                             <!-- /.card-body -->
-                            <div class="card-footer">
+                            {{-- <div class="card-footer">
                                 {{ $products->links() }}
-                            </div>
+                            </div> --}}
                         </div>
                         <!-- /.card -->
                     </div>

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description')->nullable();
-            $table->integer('percentage');
+            $table->decimal('percentage', 5, 1);
             $table->boolean('active')->default(false);
             $table->timestamps();
         });

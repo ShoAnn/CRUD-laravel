@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\ProductCategory;
+use App\Models\ProductDiscount;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,7 +22,9 @@ class ProductFactory extends Factory
             'name' => fake()->name(),
             'sku' => fake()->uuid(),
             'description' => fake()->sentence(),
-            'price' => fake()->randomFloat(2, 1, 1000),
+            'price' => fake()->randomFloat(2, 1000, 100000),
+            'product_category_id' => fake()->numberBetween(1, ProductCategory::count()),
+            'product_discount_id' => fake()->numberBetween(1, ProductDiscount::count()),
         ];
     }
 }

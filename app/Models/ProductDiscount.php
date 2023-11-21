@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class ProductDiscount extends Model
 {
     use HasFactory;
+    protected $guarded = [];
 
     public function product(): BelongsTo
     {

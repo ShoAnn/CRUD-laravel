@@ -10,7 +10,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Product extends Model
 {
     use HasFactory;
-    
+    protected $guarded = [];
+
     public function images(): HasMany
     {
         return $this->hasMany(ProductImage::class);

@@ -34,38 +34,60 @@
                                     <label for="name">Name</label>
                                     <input type="text" class="form-control" id="name" name="name"
                                         placeholder="Enter name">
+                                    @error('name')
+                                        <p class="text-small text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="description">Description</label>
                                     <textarea class="form-control" id="description" name="description" placeholder="Enter description"></textarea>
+                                    @error('description')
+                                        <p class="text-small text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="category">Category</label>
-                                    <select class="form-control custom-select" id="category" name="category">
+                                    <label for="product_category_id">Category</label>
+                                    <select class="form-control custom-select" id="product_category_id"
+                                        name="product_category_id">
                                         @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('product_category_id')
+                                        <p class="text-small text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="unit">Unit</label>
                                     <input type="text" class="form-control" id="unit" name="unit"
                                         placeholder="Enter unit">
+                                    @error('unit')
+                                        <p class="text-small text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="Code">Code</label>
-                                    <input type="text" class="form-control" id="Code" name="Code"
+                                    <label for="sku">sku</label>
+                                    <input type="text" class="form-control" id="sku" name="sku"
                                         placeholder="Enter Code">
+                                    @error('sku')
+                                        <p class="text-small text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="price">Price</label>
                                     <input type="number" class="form-control" id="price" name="price"
                                         placeholder="Enter price" value="1">
+                                    @error('price')
+                                        <p class="text-small text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="stock">Stock</label>
-                                    <input type="number" class="form-control" id="stock" name="stock"
-                                        placeholder="Enter stock" value="1">
+                                    <label for="quantity">Stock</label>
+                                    <input type="number" class="form-control" id="quantity" name="quantity"
+                                        placeholder="Enter quantity" value="1">
+                                    @error('quantity')
+                                        <p class="text-small text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                                 <button class="btn btn-success form-control " type="submit">Submit</button>
                             </form>
