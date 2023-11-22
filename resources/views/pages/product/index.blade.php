@@ -47,16 +47,21 @@
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    @foreach ($products as $product)
-                                        <tbody>
+                                    <tbody>
+                                        @foreach ($products as $product)
                                             <tr>
 
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $product->name }}</td>
                                                 <td>{{ $product->description }}</td>
-                                                <td>{{ $product->price }}</td>
+                                                <td>{{ number_format($product->price) }}</td>
                                                 <td>{{ $product->inventory->quantity }}</td>
                                                 <td>
+                                                    @foreach ($product->images as $image)
+                                                        <img src="{{ asset('storage/' . $image->name) }}"
+                                                            alt="{{ $image->name }}" class="img-fluid pr-2 py-2"
+                                                            width="80px">
+                                                    @endforeach
                                                 </td>
                                                 <td>
                                                     <a href="{{ route('product.edit', ['id' => $product->id]) }}"
@@ -94,8 +99,8 @@
                                                         </div>
                                                     </div>
                                             </tr>
-                                        </tbody>
-                                    @endforeach
+                                        @endforeach
+                                    </tbody>
                                 </table>
                             </div>
                             <!-- /.card-body -->

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\ProductImage;
 use App\Models\ProductInventory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -37,17 +38,32 @@ class ProductController extends Controller
         $productStock = $request->validate([
             'quantity' => 'required|numeric',
         ]);
+        $productImage = $request->validate([
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg'
+        ]);
 
+        // store product in products table
         $addProduct = Product::create($productData);
 
-        $productStock['product_id'] = $addProduct->id;
+        // store product images in product_images table
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('product_images', 'public');
+                $addImage = ProductImage::create([
+                    'product_id' => $addProduct->id,
+                    'name' => $path
+                ]);
+            }
+        }
 
+        // store product quantity in product_inventories table
+        $productStock['product_id'] = $addProduct->id;
         $addInventory = ProductInventory::create($productStock);
 
         if (!$addProduct || !$addInventory) {
-            return redirect()->route('product.add');
+            return redirect()->route('product.add')->with('error', 'Product add failed');
         }
-        return redirect()->route('product.index');
+        return redirect()->route('product.index')->with('success', 'Product added successfully');
     }
 
 

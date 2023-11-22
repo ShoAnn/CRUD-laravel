@@ -28,7 +28,7 @@
                 <div class="col-md-6">
                     <div class="card card-primary">
                         <div class="card-body">
-                            <form method="POST" action="{{ route('product.store') }}"">
+                            <form method="POST" action="{{ route('product.store') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                     <label for="name">Name</label>
@@ -86,6 +86,14 @@
                                     <input type="number" class="form-control" id="quantity" name="quantity"
                                         placeholder="Enter quantity" value="1">
                                     @error('quantity')
+                                        <p class="text-small text-danger">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="images">Image</label>
+                                    <input type="file" class="form-control" id="images" name="images[]"
+                                        placeholder="Enter images" multiple>
+                                    @error('images')
                                         <p class="text-small text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
