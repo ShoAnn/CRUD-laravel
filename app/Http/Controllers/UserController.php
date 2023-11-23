@@ -25,7 +25,8 @@ class UserController extends Controller
         if (Auth::attempt($formFields)) {
             $request->session()->regenerate();
 
-            return redirect('/')->with('success', 'You are logged in!');
+            toast('Login Sukses', 'success');
+            return redirect('/');
         }
         return back()->withErrors([
             'email' => 'Invalid Email',
@@ -37,6 +38,7 @@ class UserController extends Controller
     {
         Auth::logout();
 
+        toast('Logout Sukses', 'success');
         return redirect('/login');
     }
 
@@ -61,6 +63,7 @@ class UserController extends Controller
 
         Auth::login($user);
 
+        toast('Berhasil register, Selamat Datang!!', 'success');
         return redirect('/');
     }
 }

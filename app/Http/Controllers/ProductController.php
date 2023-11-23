@@ -61,9 +61,11 @@ class ProductController extends Controller
         $addInventory = ProductInventory::create($productStock);
 
         if (!$addProduct || !$addInventory) {
+            toast('Gagal menambahkan produk!', 'error');
             return redirect()->route('product.add')->with('error', 'Product add failed');
         }
-        return redirect()->route('product.index')->with('success', 'Product added successfully');
+        toast('Sukses menambahkan produk!', 'success');
+        return redirect()->route('product.index');
     }
 
 
@@ -96,6 +98,7 @@ class ProductController extends Controller
     public function destroy($id)
     {
         DB::table('products')->where('product_id', $id)->delete();
+        toast('Sukses menghapus produk!', 'success');
         return redirect()->route('product.index');
     }
 }
