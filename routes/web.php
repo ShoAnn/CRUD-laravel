@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductImageController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,15 +21,22 @@ Route::middleware(['auth'])->group(function () {
     })->name('dashboard');
     Route::redirect('/dashboard', '/');
 
-    Route::get('/product', [ProductController::class, 'index'])->name('product.index');
+    Route::prefix('product')->group(function () {
+        Route::get('/', [ProductController::class, 'index'])->name('product.index');
 
-    Route::get('/product/add', [ProductController::class, 'add'])->name('product.add');
-    Route::post('/product/store', [ProductController::class, 'store'])->name('product.store');
+        Route::get('/add', [ProductController::class, 'add'])->name('product.add');
+        Route::post('/store', [ProductController::class, 'store'])->name('product.store');
 
-    Route::get('/product/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
-    Route::post('/product/update/{id}', [ProductController::class, 'update'])->name('product.update');
+        Route::get('/edit/{product}', [ProductController::class, 'edit'])->name('product.edit');
+        Route::post('/update/{product}', [ProductController::class, 'update'])->name('product.update');
 
-    Route::delete('/product/destroy/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
+        Route::delete('/destroy/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
+
+        Route::prefix('image')->group(function () {
+            Route::post('/store', [ProductImageController::class, 'store'])->name('product.image.store');
+            Route::delete('/destroy/{image}', [ProductImageController::class, 'destroy'])->name('product.image.destroy');
+        });
+    });
 });
 
 Route::get('/login', [UserController::class, 'login'])->name('login');

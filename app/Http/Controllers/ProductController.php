@@ -69,35 +69,41 @@ class ProductController extends Controller
     }
 
 
-    public function edit($id)
+    public function edit(Product $product)
     {
-        $data = DB::table('products')->where('product_id', $id)->get();
-        $data_category = DB::table('product_category')->get();
-        $images = DB::table('product_image')->where('product_id', $id)->get();
-        return view('pages.product.edit', ['product' => $data[0]], ['categories' => $data_category], ['images' => $images]);
+        return view('pages.product.edit', [
+            'product' => $product,
+            'categories' => ProductCategory::all()
+        ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $product)
     {
-        $request->validate([
-            'name' => 'required|max:255|min:3',
+        $productData = $request->validate([
+            'name' => 'required|max:255|min:5',
             'price' => 'required|numeric',
+            'sku' => 'required',
+            'description' => 'required',
+            'product_category_id' => 'required',
         ]);
-        DB::table('products')->where('product_id', $id)->update([
-            'name' => $request->name,
-            'category' => $request->category,
-            'price' => $request->price,
-            'description' => $request->description,
-            'unit' => $request->unit,
-            'code' => $request->code,
-            'stock' => $request->stock,
+        $productStock = $request->validate([
+            'quantity' => 'required|numeric',
         ]);
+        $productImage = $request->validate([
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg'
+        ]);
+
+        // update product in products table
+        $updateProduct = $product->update($productData);
+        $updateQuantity = $product->inventory->update($productStock);
+
+
         return redirect()->route('product.index');
     }
 
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        DB::table('products')->where('product_id', $id)->delete();
+        $product->delete();
         toast('Sukses menghapus produk!', 'success');
         return redirect()->route('product.index');
     }

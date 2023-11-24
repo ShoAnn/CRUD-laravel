@@ -64,7 +64,7 @@
                                                     @endforeach
                                                 </td>
                                                 <td>
-                                                    <a href="{{ route('product.edit', ['id' => $product->id]) }}"
+                                                    <a href="{{ route('product.edit', ['product' => $product->id]) }}"
                                                         class="btn btn-warning w-100 mb-2">Edit</a>
                                                     <button type="button" class="btn btn-danger w-100" data-toggle="modal"
                                                         data-target="#deleteModal">
@@ -87,7 +87,7 @@
                                                                     <button type="button" class="btn btn-secondary"
                                                                         data-dismiss="modal">Close</button>
                                                                     <form
-                                                                        action="{{ route('product.destroy', ['id' => $product->id]) }}"
+                                                                        action="{{ route('product.destroy', ['product' => $product->id]) }}"
                                                                         method="POST">
                                                                         @csrf
                                                                         @method('DELETE')

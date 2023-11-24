@@ -52,18 +52,24 @@
     <script src="{{ asset('template/dist/js/adminlte.js') }}"></script>
 
     <!-- PAGE PLUGINS -->
-    <script>
-        let modalConfirm = function(callback) {
-
-            $("#btn-confirm").on("click", function() {
-                $("#mi-modal").modal('show');
-            });
-
-            $("#modal-btn-si").on("click", function() {
-                callback(true);
-                $("#mi-modal").modal('hide');
-            });
-        };
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+    <script type="text/javascript">
+        $('.show_confirm').click(function(event) {
+            var form = $(this).closest("form");
+            var name = $(this).data("name");
+            event.preventDefault();
+            swal({
+                    title: `Image will be deleted`,
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        form.submit();
+                    }
+                });
+        });
     </script>
 </body>
 

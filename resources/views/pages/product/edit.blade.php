@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Tambah Produk')
+@section('title', 'Edit Produk')
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
@@ -22,72 +22,77 @@
                 <div class="col-md-6">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">General</h3>
+                            <h3 class="card-title">Informasi Produk</h3>
 
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('product.update', $product->product_id) }}" method="POST">
+                            <form method="POST" action="{{ route('product.update', ['product' => $product->id]) }}"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="inputName" class="form-label">Nama Produk</label>
-                                    <input type="text" id="inputName" class="form-control" name="product_name"
-                                        value="{{ $product->product_name }}">
+                                    <label for="name">Name</label>
+                                    <input type="text" class="form-control" id="name" name="name"
+                                        placeholder="Enter name" value="{{ $product->name }}">
+                                    @error('name')
+                                        <p class="text-small text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
-                                <div class="from-group">
-                                    <label for="inputCategory" class="form-label">Kategori</label>
-                                    <select id="inputCategory" class="form-control custom-select" name="category_id">
-                                        <option selected disabled>Select one</option>
+                                <div class="form-group">
+                                    <label for="description">Description</label>
+                                    <textarea class="form-control" id="description" name="description" placeholder="Enter description"
+                                        value="{{ $product->description }}"></textarea>
+                                    @error('description')
+                                        <p class="text-small text-danger">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="product_category_id">Category</label>
+                                    <select class="form-control custom-select" id="product_category_id"
+                                        name="product_category_id">
                                         @foreach ($categories as $category)
                                             <option value="{{ $category->id }}"
-                                                {{ $category->id == $product->category_id ? 'selected' : '' }}>
-                                                {{ $category->category_name }}</option>
+                                                {{ $category->id === $product->product_category_id ? 'selected' : '' }}>
+                                                {{ $category->name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('product_category_id')
+                                        <p class="text-small text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputDescription" class="form-label">Deskripsi</label>
-                                    <textarea id="inputDescription" class="form-control" rows="4" name="description">{{ $product->description }}</textarea>
+                                    <label for="unit">Unit</label>
+                                    <input type="text" class="form-control" id="unit" name="unit"
+                                        placeholder="Enter unit" value="{{ $product->unit }}">
+                                    @error('unit')
+                                        <p class="text-small text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputPrice" class="form-label">Harga</label>
-                                    <input type="text" id="inputPrice" class="form-control" name="price"
-                                        value="{{ $product->price }}">
+                                    <label for="sku">sku</label>
+                                    <input type="text" class="form-control" id="sku" name="sku"
+                                        placeholder="Enter Code" value="{{ $product->sku }}">
+                                    @error('sku')
+                                        <p class="text-small text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputUnit" class="form-label">Satuan</label>
-                                    <input type="text" id="inputUnit" class="form-control" name="unit"
-                                        value="{{ $product->unit }}">
+                                    <label for="price">Price</label>
+                                    <input type="number" class="form-control" id="price" name="price"
+                                        placeholder="Enter price" value="{{ $product->price }}">
+                                    @error('price')
+                                        <p class="text-small text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputImage" class="form-label">Gambar</label>
-                                    <input type="file" id="inputImage" class="form-control" name="image" multiple>
+                                    <label for="quantity">Stock</label>
+                                    <input type="number" class="form-control" id="quantity" name="quantity"
+                                        placeholder="Enter quantity" value="{{ $product->inventory->quantity }}">
+                                    @error('quantity')
+                                        <p class="text-small text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
 
-                                @if (count($product->image) > 0)
-                                    <div class="form-group">
-                                        <label for="currentImages" class="form-label">Gambar saat ini</label>
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Gambar</th>
-                                                    <th>Aksi</th>
-                                                </tr>
-                                            </thead>
-                                            {{-- <tbody>
-                                                @foreach ($product->image as $image)
-                                                    <tr>
-                                                        <td><img src="{{ asset('template/' . $image) }}" alt=""
-                                                                width="100"></td>
-                                                        <td>
-
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody> --}}
-                                        </table>
-                                    </div>
-                                @endif
-
+                                <button class="btn btn-success w-100 " type="submit">Submit</button>
                             </form>
                         </div>
                         <!-- /.card-body -->
@@ -95,22 +100,65 @@
                     <!-- /.card -->
                 </div>
                 <div class="col-md-6">
-                    <div class="card card-secondary">
+                    <div class="card card-info">
                         <div class="card-header">
-                            <h3 class="card-title">image</h3>
+                            <h3 class="card-title">Product Images</h3>
                         </div>
-                        <div class="card-body">
-
+                        <div class="card-body p-0">
+                            <table class="table">
+                                <tbody>
+                                    @foreach ($product->images as $image)
+                                        <tr>
+                                            <td>
+                                                <img src="{{ asset('storage/' . $image->name) }}"
+                                                    alt="{{ $image->name }}" class="img-fluid pr-2 py-2" width="80px">
+                                            </td>
+                                            <td class="text-right py-0 align-middle">
+                                                <form
+                                                    action="{{ route('product.image.destroy', ['image' => $image->id]) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm show_confirm"
+                                                        data-name="{{ $image->name }}">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                         <!-- /.card-body -->
                     </div>
                     <!-- /.card -->
+                    <div class="card card-success">
+                        <div class="card-header">
+                            <h3 class="card-title">Add more images</h3>
+                        </div>
+                        <div class="card-body">
+                            <form action="{{ route('product.image.store') }}" method="POST">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="images">Image</label>
+                                    <input type="file" class="form-control" id="images" name="images[]"
+                                        placeholder="Enter images" multiple>
+                                    @error('images')
+                                        <p class="text-small text-danger">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <button class="btn btn-primary w-100" type="submit">Submit</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <hr>
             <div class="row">
-                <div class="col-12">
-                    <a href="#" class="btn btn-secondary">Cancel</a>
-                    <input type="submit" value="Save Changes" class="btn btn-success float-right">
+                <div class="col-6 p-3">
+                    <a href="#" class="btn btn-danger w-100">Kembali ke tabel produk</a>
                 </div>
             </div>
         </section>
