@@ -9,12 +9,11 @@ class ProductImageController extends Controller
 {
     public function store(Request $request)
     {
-
         $productImage = $request->validate([
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg',
+            'product_id' => 'required'
         ]);
 
-        dd($request->all());
         // store product images in product_images table
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
@@ -26,14 +25,14 @@ class ProductImageController extends Controller
             }
         }
 
-        toast('Product image(s) added successfully!', 'success');
+        toast('Sukses menambahkan gambar produk!', 'success')->width('24rem')->background('#050505');
         return redirect()->back();
     }
 
     public function destroy(ProductImage $image)
     {
         $image->delete();
-        toast('Product image deleted successfully!', 'success');
+        toast('Sukses menghapus gambar produk!', 'success')->width('24rem')->background('#050505');
         return redirect()->back();
     }
 }

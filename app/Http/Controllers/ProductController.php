@@ -64,7 +64,7 @@ class ProductController extends Controller
             toast('Gagal menambahkan produk!', 'error');
             return redirect()->route('product.add')->with('error', 'Product add failed');
         }
-        toast('Sukses menambahkan produk!', 'success');
+        toast('Sukses menambahkan produk!', 'success')->width('24rem')->background('#050505');
         return redirect()->route('product.index');
     }
 
@@ -89,22 +89,23 @@ class ProductController extends Controller
         $productStock = $request->validate([
             'quantity' => 'required|numeric',
         ]);
-        $productImage = $request->validate([
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg'
-        ]);
 
         // update product in products table
         $updateProduct = $product->update($productData);
         $updateQuantity = $product->inventory->update($productStock);
 
-
+        if (!$updateProduct || !$updateQuantity) {
+            toast('Gagal mengubah produk!', 'error')->width('24rem')->background('#050505');
+            return redirect()->route('product.edit', $product->id)->with('error', 'Product update failed');
+        }
+        toast('Sukses mengubah produk!', 'success')->width('24rem')->background('#050505');
         return redirect()->route('product.index');
     }
 
     public function destroy(Product $product)
     {
         $product->delete();
-        toast('Sukses menghapus produk!', 'success');
+        toast('Sukses menghapus produk!', 'success')->width('24rem')->background('#050505');
         return redirect()->route('product.index');
     }
 }

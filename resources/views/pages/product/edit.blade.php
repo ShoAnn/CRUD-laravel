@@ -102,7 +102,7 @@
                 <div class="col-md-6">
                     <div class="card card-info">
                         <div class="card-header">
-                            <h3 class="card-title">Product Images</h3>
+                            <h3 class="card-title">Gambar produk</h3>
                         </div>
                         <div class="card-body p-0">
                             <table class="table">
@@ -135,10 +135,11 @@
                     <!-- /.card -->
                     <div class="card card-success">
                         <div class="card-header">
-                            <h3 class="card-title">Add more images</h3>
+                            <h3 class="card-title">Tambah gambar</h3>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('product.image.store') }}" method="POST">
+                            <form action="{{ route('product.image.store') }}" method="POST"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                     <label for="images">Image</label>
@@ -147,6 +148,15 @@
                                     @error('images')
                                         <p class="text-small text-danger">{{ $message }}</p>
                                     @enderror
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
                                 </div>
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                                 <button class="btn btn-primary w-100" type="submit">Submit</button>
@@ -158,7 +168,7 @@
             <hr>
             <div class="row">
                 <div class="col-6 p-3">
-                    <a href="#" class="btn btn-danger w-100">Kembali ke tabel produk</a>
+                    <a href="{{ route('product.index') }}" class="btn btn-danger w-100">Kembali ke tabel produk</a>
                 </div>
             </div>
         </section>
