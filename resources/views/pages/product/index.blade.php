@@ -64,40 +64,14 @@
                                                     @endforeach
                                                 </td>
                                                 <td>
-                                                    <a href="{{ route('product.edit', ['product' => $product->id]) }}"
+                                                    <a href="{{ route('product.edit', $product) }}"
                                                         class="btn btn-warning w-100 mb-2">Edit</a>
-                                                    <button type="button" class="btn btn-danger w-100" data-toggle="modal"
-                                                        data-target="#deleteModal">
-                                                        Delete
-                                                    </button>
-                                                    {{-- modal --}}
-                                                    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
-                                                        aria-labelledby="deleteModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="deleteModalLabel">Konfirmasi
-                                                                        Hapus Produk</h5>
-                                                                    <button type="button" class="close"
-                                                                        data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary"
-                                                                        data-dismiss="modal">Close</button>
-                                                                    <form
-                                                                        action="{{ route('product.destroy', ['product' => $product->id]) }}"
-                                                                        method="POST">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                        <button type="submit"
-                                                                            class="btn btn-danger">Hapus</button>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    <form action="{{ route('product.destroy', $product) }}" method="POST"
+                                                        onsubmit="return confirm('Apakah anda yakin ingin menghapus produk ini?');">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger w-100">Hapus</button>
+                                                    </form>
                                             </tr>
                                         @endforeach
                                     </tbody>

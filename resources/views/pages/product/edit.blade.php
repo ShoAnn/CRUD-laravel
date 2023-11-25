@@ -39,8 +39,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="description">Description</label>
-                                    <textarea class="form-control" id="description" name="description" placeholder="Enter description"
-                                        value="{{ $product->description }}"></textarea>
+                                    <textarea class="form-control" id="description" name="description" placeholder="Enter description">{{ $product->description }}</textarea>
                                     @error('description')
                                         <p class="text-small text-danger">{{ $message }}</p>
                                     @enderror
@@ -138,8 +137,7 @@
                             <h3 class="card-title">Tambah gambar</h3>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('product.image.store') }}" method="POST"
-                                enctype="multipart/form-data">
+                            <form action="{{ route('product.image.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                     <label for="images">Image</label>

@@ -30,9 +30,10 @@ class ProductController extends Controller
     {
         $productData = $request->validate([
             'name' => 'required|max:255|min:5',
-            'price' => 'required|numeric',
-            'sku' => 'required',
             'description' => 'required',
+            'sku' => 'required',
+            'unit' => 'string',
+            'price' => 'required|numeric',
             'product_category_id' => 'required',
         ]);
         $productStock = $request->validate([
@@ -83,6 +84,7 @@ class ProductController extends Controller
             'name' => 'required|max:255|min:5',
             'price' => 'required|numeric',
             'sku' => 'required',
+            'unit' => 'string',
             'description' => 'required',
             'product_category_id' => 'required',
         ]);
@@ -105,7 +107,6 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
-        toast('Sukses menghapus produk!', 'success')->width('24rem')->background('#050505');
         return redirect()->route('product.index');
     }
 }

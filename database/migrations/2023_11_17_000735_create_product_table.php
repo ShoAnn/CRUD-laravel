@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('sku');
             $table->text('description')->nullable();
             $table->decimal('price', 12, 2);
+            $table->string('unit')->default('pcs');
             $table->unsignedBigInteger('product_category_id');
             $table->unsignedBigInteger('product_discount_id')->nullable();
             $table->timestamps();

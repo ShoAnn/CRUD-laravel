@@ -10,13 +10,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Project Add</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Project Add</li>
-                        </ol>
+                        <h1>Tambah produk</h1>
                     </div>
                 </div>
             </div><!-- /.container-fluid -->
@@ -76,7 +70,7 @@
                                 <div class="form-group">
                                     <label for="price">Price</label>
                                     <input type="number" class="form-control" id="price" name="price"
-                                        placeholder="Enter price" value="1">
+                                        placeholder="Enter price">
                                     @error('price')
                                         <p class="text-small text-danger">{{ $message }}</p>
                                     @enderror
@@ -84,7 +78,7 @@
                                 <div class="form-group">
                                     <label for="quantity">Stock</label>
                                     <input type="number" class="form-control" id="quantity" name="quantity"
-                                        placeholder="Enter quantity" value="1">
+                                        placeholder="Enter quantity">
                                     @error('quantity')
                                         <p class="text-small text-danger">{{ $message }}</p>
                                     @enderror
