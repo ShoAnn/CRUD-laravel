@@ -104,63 +104,60 @@
                             <h3 class="card-title">Gambar produk</h3>
                         </div>
                         <div class="card-body p-0">
-                            <table class="table">
-                                <tbody>
-                                    @foreach ($product->images as $image)
-                                        <tr>
-                                            <td>
+                            <div class="row">
+                                @foreach ($product->images as $image)
+                                    <div class="col-md-3">
+                                        <div class="card pt-2">
+                                            <div class="card-body row justify-content-center py-1 px-2">
                                                 <img src="{{ asset('storage/' . $image->name) }}"
-                                                    alt="{{ $image->name }}" class="img-fluid pr-2 py-2" width="80px">
-                                            </td>
-                                            <td class="text-right py-0 align-middle">
+                                                    alt="{{ $image->name }}" class="card-img-top">
                                                 <form
                                                     action="{{ route('product.image.destroy', ['image' => $image->id]) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm show_confirm"
+                                                    <button type="submit" class="btn btn-danger btn-sm show_confirm mt-1"
                                                         data-name="{{ $image->name }}">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
                                                 </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <hr>
+                            <div class="card-secondary">
+                                <div class="card-body">
+                                    <form action="{{ route('product.image.store') }}" method="POST"
+                                        enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="form-group">
+                                            <label for="images">Tambah Gambar</label>
+                                            <input type="file" class="form-control" id="images" name="images[]"
+                                                placeholder="Enter images" multiple>
+                                            @error('images')
+                                                <p class="text-small text-danger">{{ $message }}</p>
+                                            @enderror
+                                            @if ($errors->any())
+                                                <div class="alert alert-danger">
+                                                    <ul>
+                                                        @foreach ($errors->all() as $error)
+                                                            <li>{{ $error }}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            @endif
+                                        </div>
+                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                        <button class="btn btn-primary w-100" type="submit">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                         <!-- /.card-body -->
                     </div>
                     <!-- /.card -->
-                    <div class="card card-success">
-                        <div class="card-header">
-                            <h3 class="card-title">Tambah gambar</h3>
-                        </div>
-                        <div class="card-body">
-                            <form action="{{ route('product.image.store') }}" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                <div class="form-group">
-                                    <label for="images">Image</label>
-                                    <input type="file" class="form-control" id="images" name="images[]"
-                                        placeholder="Enter images" multiple>
-                                    @error('images')
-                                        <p class="text-small text-danger">{{ $message }}</p>
-                                    @enderror
-                                    @if ($errors->any())
-                                        <div class="alert alert-danger">
-                                            <ul>
-                                                @foreach ($errors->all() as $error)
-                                                    <li>{{ $error }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                    @endif
-                                </div>
-                                <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                <button class="btn btn-primary w-100" type="submit">Submit</button>
-                            </form>
-                        </div>
-                    </div>
                 </div>
             </div>
             <hr>

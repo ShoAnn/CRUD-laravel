@@ -25,9 +25,10 @@ class UserController extends Controller
         if (Auth::attempt($formFields)) {
             $request->session()->regenerate();
 
-            toast('Login Sukses', 'success');
+            toast('Login Sukses', 'success')->background('#050505')->width('24rem');
             return redirect('/');
         }
+        toast('Login gagal, periksa email atau password', 'error')->background('#050505')->width('24rem');
         return back()->withErrors([
             'email' => 'Invalid Email',
         ])->onlyInput('email');
@@ -38,7 +39,7 @@ class UserController extends Controller
     {
         Auth::logout();
 
-        toast('Logout Sukses', 'success');
+        toast('Logout Sukses', 'success')->background('#050505')->width('24rem');
         return redirect('/login');
     }
 
@@ -63,7 +64,7 @@ class UserController extends Controller
 
         Auth::login($user);
 
-        toast('Berhasil register, Selamat Datang!!', 'success');
+        toast('Berhasil register, Selamat Datang!!', 'success')->background('#050505')->width('24rem');
         return redirect('/');
     }
 }
