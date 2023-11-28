@@ -7,10 +7,10 @@ use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use App\Models\ProductCategory;
 use App\Models\ProductInventory;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\View\View;
-use App\Http\Resources\ProductResource;
-use Illuminate\Http\JsonResponse;
+use App\Http\Resources\ProductCollection;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class ProductController extends Controller
@@ -19,7 +19,7 @@ class ProductController extends Controller
     public function index(): View
     {
         return view('pages.product.index', [
-            'products' => ProductResource::collection(Product::with('images', 'inventory')->get())
+            'products' => new ProductCollection(Product::with('images', 'inventory')->get())
         ]);
     }
 
