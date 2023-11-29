@@ -30,7 +30,7 @@ class UserController extends Controller
         }
         toast('Login gagal, periksa email atau password', 'error')->background('#050505')->width('24rem');
         return back()->withErrors([
-            'email' => 'Invalid Email',
+            'email' => 'Invalid Login Credentials.',
         ])->onlyInput('email');
     }
 

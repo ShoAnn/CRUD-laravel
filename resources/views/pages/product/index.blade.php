@@ -41,6 +41,7 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Nama Produk</th>
+                                            <th>Kategori</th>
                                             <th>Deskripsi</th>
                                             <th>Harga</th>
                                             <th>Stok</th>
@@ -54,11 +55,16 @@
 
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $product->name }}</td>
+                                                @foreach ($categories as $category)
+                                                    @if ($category->id == $product->product_category_id)
+                                                        <td>{{ $category->name }}</td>
+                                                    @endif
+                                                @endforeach
                                                 <td>{{ $product->description }}</td>
                                                 <td>{{ number_format($product->price) }}</td>
                                                 <td>{{ $product->inventory->quantity }}</td>
                                                 <td>
-                                                    @foreach ($product->images as $image)
+                                                    @foreach ($product->image as $image)
                                                         <img src="{{ asset('storage/' . $image->name) }}"
                                                             alt="{{ $image->name }}" class="img-fluid pr-2 py-2"
                                                             width="80px">
