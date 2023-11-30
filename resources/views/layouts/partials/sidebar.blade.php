@@ -23,9 +23,7 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
-                <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-                <li class="nav-item border rounded my-2">
+                <li class="nav-item my-2">
                     <a href="{{ route('product.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-box"></i>
                         <p>
@@ -33,7 +31,7 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item border rounded my-2">
+                <li class="nav-item my-2">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-box"></i>
                         <p>
@@ -41,7 +39,7 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item border rounded my-2">
+                <li class="nav-item my-2">
                     <a href="pages/widgets.html" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
@@ -49,7 +47,7 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item border rounded my-2">
+                <li class="nav-item my-2">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-copy"></i>
                         <p>
@@ -57,13 +55,13 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item border rounded my-2">
+                        <li class="nav-item my-2">
                             <a href="pages/layout/top-nav.html" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Data Suplai</p>
                             </a>
                         </li>
-                        <li class="nav-item border rounded my-2">
+                        <li class="nav-item my-2">
                             <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Data Supplier</p>
