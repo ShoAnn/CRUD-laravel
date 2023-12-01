@@ -23,46 +23,46 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
-                <li class="nav-item my-2">
+                <li class="nav-item mb-2">
                     <a href="{{ route('product.index') }}" class="nav-link">
-                        <i class="nav-icon fas fa-box"></i>
+                        <i class="nav-icon fas fa-shopping-cart"></i>
                         <p>
                             Data Produk
                         </p>
                     </a>
                 </li>
-                <li class="nav-item my-2">
+                <li class="nav-item mb-2">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-box"></i>
+                        <i class="nav-icon fas fa-user"></i>
                         <p>
                             Data Pembeli
                         </p>
                     </a>
                 </li>
-                <li class="nav-item my-2">
-                    <a href="pages/widgets.html" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
+                <li class="nav-item mb-2">
+                    <a href="3" class="nav-link">
+                        <i class="nav-icon fas fa-chart-bar"></i>
                         <p>
                             Data Penjualan
                         </p>
                     </a>
                 </li>
-                <li class="nav-item my-2">
+                <li class="nav-item mb-2">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-copy"></i>
+                        <i class="nav-icon fas fa-truck"></i>
                         <p>
                             Data Supply
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item my-2">
-                            <a href="pages/layout/top-nav.html" class="nav-link">
+                        <li class="nav-item mb-2">
+                            <a href="3" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Data Suplai</p>
+                                <p>Data Pembelian Produk</p>
                             </a>
                         </li>
-                        <li class="nav-item my-2">
-                            <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                        <li class="nav-item mb-2">
+                            <a href="#" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Data Supplier</p>
                             </a>

@@ -90,10 +90,52 @@
                     <!-- ./col -->
                 </div>
                 <!-- /.row -->
-                <!-- /.row -->
+                <div class="row">
+                    <div class="card col-md-6">
+                        <div class="card-body">
+                            <figure class="highcharts-figure">
+                                <div id="container"></div>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
             </div><!--/. container-fluid -->
         </section>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
+@endsection
+
+@section('footer')
+    @include('layouts.partials.footer')
+@endsection
+
+@section('chart')
+    <script>
+        Highcharts.chart('container', {
+            chart: {
+                styledMode: true
+            },
+            title: {
+                text: 'Produk berdasarkan kategori'
+            },
+            tooltip: {
+                formatter: function() {
+                    return '<b>' + this.y + '</b> Produk';
+                },
+                shared: true
+            },
+            series: [{
+                type: 'pie',
+                allowPointSelect: true,
+                keys: ['name', 'y', 'selected', 'sliced'],
+                data: [
+                    @foreach ($categories as $category)
+                        ['{{ $category->name }}', {{ $category->product->count() }}, false],
+                    @endforeach
+                ],
+                showInLegend: true
+            }]
+        });
+    </script>
 @endsection
