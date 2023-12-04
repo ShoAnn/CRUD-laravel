@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="{{ asset('template/dist/css/adminlte.min.css') }}">
     {{-- Highcharts --}}
     <style>
-        @import url("https://code.highcharts.com/css/highcharts.css");
+        @import url("{{ asset('vendor/highcharts/highcharts.css') }}");
 
         .highcharts-pie-series .highcharts-point {
             stroke: #ede;
@@ -32,8 +32,8 @@
 
         .highcharts-figure,
         .highcharts-data-table table {
-            min-width: 320px;
-            max-width: 600px;
+            min-width: 220px;
+            max-width: auto;
             margin: 1em auto;
         }
 

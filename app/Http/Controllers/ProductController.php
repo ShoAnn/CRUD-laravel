@@ -107,42 +107,42 @@ class ProductController extends Controller
         return redirect()->route('product.index');
     }
 
-    public function destroy(Product $product)
-    {
-        $product->delete();
-        return redirect()->route('product.index');
-    }
+    // public function destroy(Product $product)
+    // {
+    //     $product->delete();
+    //     return redirect()->route('product.index');
+    // }
 
-    public function index_resource(): JsonResponse
-    {
-        return response()->json([
-            'products' => new ProductCollection(Product::all()),
-            'categories' => ProductCategory::all()
-        ]);
-    }
+    // public function index_resource(): JsonResponse
+    // {
+    //     return response()->json([
+    //         'products' => new ProductCollection(Product::all()),
+    //         'categories' => ProductCategory::all()
+    //     ]);
+    // }
 
-    public function store_resource(): JsonResponse
-    {
-        $data = request()->json()->all();
-        return response()->json([
-            'message' => 'Product add success',
-            'data' => $data
-        ], 200);
-    }
-    public function update_resource($id): JsonResponse
-    {
-        $data = request()->json()->all();
-        return response()->json([
-            'message' => 'Product update success',
-            'id' => $id,
-            'data' => $data
-        ], 200);
-    }
-    public function destroy_resource($id): JsonResponse
-    {
-        return response()->json([
-            'message' => 'Product delete success',
-            'id' => $id
-        ], 200);
-    }
+    // public function store_resource(): JsonResponse
+    // {
+    //     $data = request()->json()->all();
+    //     return response()->json([
+    //         'message' => 'Product add success',
+    //         'data' => $data
+    //     ], 200);
+    // }
+    // public function update_resource($id): JsonResponse
+    // {
+    //     $data = request()->json()->all();
+    //     return response()->json([
+    //         'message' => 'Product update success',
+    //         'id' => $id,
+    //         'data' => $data
+    //     ], 200);
+    // }
+    // public function destroy_resource($id): JsonResponse
+    // {
+    //     return response()->json([
+    //         'message' => 'Product delete success',
+    //         'id' => $id
+    //     ], 200);
+    // }
 }

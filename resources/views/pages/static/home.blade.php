@@ -22,13 +22,13 @@
         <section class="content">
             <div class="container-fluid">
                 <!-- Small Box (Stat card) -->
-                <h5 class="mb-2 mt-4">Statistik</h5>
+                <h3 class="mb-2 mt-4">Statistik</h3>
                 <div class="row">
                     <div class="col-lg-3 col-6">
                         <!-- small card -->
                         <div class="small-box bg-info">
                             <div class="inner">
-                                <h3>150</h3>
+                                <h3>{{ $products->count() }}</h3>
                                 <p>Produk</p>
                             </div>
                             <div class="icon">
@@ -44,7 +44,7 @@
                         <!-- small card -->
                         <div class="small-box bg-success">
                             <div class="inner">
-                                <h3>53</h3>
+                                <h3>{{ $categories->count() }}</h3>
                                 <p>Kategori</p>
                             </div>
                             <div class="icon">
@@ -60,8 +60,8 @@
                         <!-- small card -->
                         <div class="small-box bg-warning">
                             <div class="inner">
-                                <h3>44</h3>
-                                <p>Total harga </p>
+                                <h3>{{ number_format($products->sum('price')) }}</h3>
+                                <p>Total harga semua produk</p>
                             </div>
                             <div class="icon">
                                 <i class="fas fa-dollar-sign"></i>
@@ -76,7 +76,7 @@
                         <!-- small card -->
                         <div class="small-box bg-danger">
                             <div class="inner">
-                                <h3>65</h3>
+                                <h3>{{ $products->sum('inventory.quantity') }}</h3>
                                 <p>Stok total</p>
                             </div>
                             <div class="icon">
@@ -91,10 +91,26 @@
                 </div>
                 <!-- /.row -->
                 <div class="row">
+                    <div class="card col-md-5 mr-4 ">
+                        <div class="card-body">
+                            <figure class="highcharts-figure">
+                                <div id="product_category"></div>
+                            </figure>
+                        </div>
+                    </div>
                     <div class="card col-md-6">
                         <div class="card-body">
                             <figure class="highcharts-figure">
-                                <div id="container"></div>
+                                <div id="price_category"></div>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col card">
+                        <div class="card-body">
+                            <figure class="highcharts-figure">
+                                <div id="stock_category"></div>
                             </figure>
                         </div>
                     </div>
@@ -112,7 +128,7 @@
 
 @section('chart')
     <script>
-        Highcharts.chart('container', {
+        Highcharts.chart('product_category', {
             chart: {
                 styledMode: true
             },
@@ -133,8 +149,121 @@
                     @foreach ($categories as $category)
                         ['{{ $category->name }}', {{ $category->product->count() }}, false],
                     @endforeach
+                ]
+            }]
+        });
+
+        Highcharts.chart('price_category', {
+            chart: {
+                type: 'column',
+                styledMode: true
+            },
+            title: {
+                text: 'Total harga produk berdasarkan kategori',
+                align: 'left'
+            },
+            xAxis: {
+                categories: [
+                    @foreach ($categories as $category)
+                        '{{ $category->name }}',
+                    @endforeach
                 ],
-                showInLegend: true
+                crosshair: true,
+                accessibility: {
+                    description: 'Kategori produk'
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Total harga'
+                }
+            },
+            tooltip: {
+                formatter: function() {
+                    return 'Rp. <b>' + this.y + '</b>';
+                },
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: 'Total Harga',
+                data: [
+                    @foreach ($categories as $category)
+                        {{ $category->product->sum('price') }},
+                    @endforeach
+                ]
+            }]
+        });
+
+        Highcharts.chart('stock_category', {
+            chart: {
+                type: 'bar',
+                styledMode: true
+            },
+            title: {
+                text: 'Stok Produk berdasarkan kategori',
+                align: 'left'
+            },
+            xAxis: {
+                categories: [
+                    @foreach ($categories as $category)
+                        '{{ $category->name }}',
+                    @endforeach
+                ],
+                title: {
+                    text: null
+                },
+                gridLineWidth: 1,
+                lineWidth: 0
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Stok Produk',
+                    align: 'high'
+                },
+                labels: {
+                    overflow: 'justify'
+                },
+                gridLineWidth: 0
+            },
+            tooltip: {
+                valueSuffix: ' PCS'
+            },
+            plotOptions: {
+                bar: {
+                    borderRadius: '50%',
+                    dataLabels: {
+                        enabled: true
+                    },
+                    groupPadding: 0.1
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                x: -40,
+                y: 80,
+                floating: true,
+                borderWidth: 1,
+                shadow: true
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Stok',
+                data: [
+                    @foreach ($categories as $category)
+                        {{ $category->product->sum('inventory.quantity') }},
+                    @endforeach
+                ]
             }]
         });
     </script>

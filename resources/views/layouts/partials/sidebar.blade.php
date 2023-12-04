@@ -30,45 +30,6 @@
                             Data Produk
                         </p>
                     </a>
-                </li>
-                <li class="nav-item mb-2">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-user"></i>
-                        <p>
-                            Data Pembeli
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item mb-2">
-                    <a href="3" class="nav-link">
-                        <i class="nav-icon fas fa-chart-bar"></i>
-                        <p>
-                            Data Penjualan
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item mb-2">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-truck"></i>
-                        <p>
-                            Data Supply
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item mb-2">
-                            <a href="3" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Data Pembelian Produk</p>
-                            </a>
-                        </li>
-                        <li class="nav-item mb-2">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Data Supplier</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
