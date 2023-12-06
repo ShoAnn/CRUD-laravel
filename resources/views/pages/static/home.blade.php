@@ -2,62 +2,6 @@
 
 @section('title', 'Homepage')
 
-@section('header')
-    <style>
-        @import url("{{ asset('vendor/highcharts/highcharts.css') }}");
-
-        .highcharts-pie-series .highcharts-point {
-            stroke: #ede;
-            stroke-width: 2px;
-        }
-
-        .highcharts-pie-series .highcharts-data-label-connector {
-            stroke: silver;
-            stroke-dasharray: 2, 2;
-            stroke-width: 2px;
-        }
-
-        .highcharts-figure,
-        .highcharts-data-table table {
-            min-width: 220px;
-            max-width: auto;
-            margin: 1em auto;
-        }
-
-        .highcharts-data-table table {
-            font-family: Verdana, sans-serif;
-            border-collapse: collapse;
-            border: 1px solid #ebebeb;
-            margin: 10px auto;
-            text-align: center;
-            width: 100%;
-            max-width: 500px;
-        }
-
-        .highcharts-data-table caption {
-            padding: 1em 0;
-            font-size: 1.2em;
-            color: #ffffff;
-        }
-
-        .highcharts-data-table th {
-            font-weight: 400;
-            padding: 0.5em;
-        }
-
-        .highcharts-data-table td,
-        .highcharts-data-table th,
-        .highcharts-data-table caption {
-            padding: 0.5em;
-        }
-
-        .highcharts-data-table thead tr,
-        .highcharts-data-table tr:nth-child(even) {
-            background: #353535;
-        }
-    </style>
-@endsection
-
 @section('content')
 
     <!-- Content Wrapper. Contains page content -->
@@ -182,12 +126,8 @@
     @include('layouts.partials.footer')
 @endsection
 
-@section('script')
-    <script src="{{ asset('vendor/highcharts/highcharts.js') }}"></script>
-    <script src="{{ asset('vendor/highcharts/exporting.js') }}"></script>
-    <script src="{{ asset('vendor/highcharts/export-data.js') }}"></script>
-    <script src="{{ asset('vendor/highcharts/accessibility.js') }}"></script>
-    <script type="text/javascript">
+@section('chart')
+    <script>
         Highcharts.chart('product_category', {
             chart: {
                 styledMode: true
