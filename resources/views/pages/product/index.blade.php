@@ -10,7 +10,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Products</h1>
+                        <h1>Produk</h1>
                     </div>
                     <div class="col-sm-6">
                         <div class="float-right">
@@ -31,10 +31,6 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Data Produk</h3>
-                            </div>
-                            <!-- /.card-header -->
                             <div class="card-body">
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
@@ -72,12 +68,42 @@
                                                 </td>
                                                 <td>
                                                     <a href="{{ route('product.edit', $product) }}"
-                                                        class="btn btn-warning w-100 mb-2">Edit</a>
-                                                    <form action="{{ route('product.destroy', $product) }}" method="POST"
-                                                        onsubmit="return confirm('Apakah anda yakin ingin menghapus produk ini?');">
+                                                        class="btn btn-warning w-100 mb-2"><i class="fas fa-edit"></i></a>
+                                                    <form action="{{ route('product.destroy', $product) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger w-100">Hapus</button>
+                                                        <button type="button" class="btn btn-danger w-100"
+                                                            data-toggle="modal" data-target="#confirmDelete">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+
+                                                        <!-- Modal -->
+                                                        <div class="modal fade" id="confirmDelete" tabindex="-1"
+                                                            role="dialog" aria-labelledby="confirmDeleteLabel"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="confirmDeleteLabel">
+                                                                            Konfirmasi Hapus data</h5>
+                                                                        <button type="button" class="close"
+                                                                            data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        {{ $product->name }}
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            data-dismiss="modal">Batal</button>
+                                                                        <button type="submit" class="btn btn-danger">
+                                                                            Hapus
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </form>
                                             </tr>
                                         @endforeach
@@ -85,9 +111,9 @@
                                 </table>
                             </div>
                             <!-- /.card-body -->
-                            {{-- <div class="card-footer">
+                            <div class="card-footer">
                                 {{ $products->links() }}
-                            </div> --}}
+                            </div>
                         </div>
                         <!-- /.card -->
                     </div>
@@ -100,7 +126,4 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-
-
-
 @endsection
