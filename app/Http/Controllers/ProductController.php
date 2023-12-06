@@ -7,10 +7,7 @@ use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use App\Models\ProductCategory;
 use App\Models\ProductInventory;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\View\View;
-use App\Http\Resources\ProductCollection;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class ProductController extends Controller
@@ -19,7 +16,7 @@ class ProductController extends Controller
     public function index(): View
     {
         return view('pages.product.index', [
-            'products' => Product::with('inventory', 'image')->get(),
+            'products' => Product::with('inventory', 'image')->paginate(10),
             'categories' => ProductCategory::all()
         ]);
     }
@@ -107,11 +104,11 @@ class ProductController extends Controller
         return redirect()->route('product.index');
     }
 
-    // public function destroy(Product $product)
-    // {
-    //     $product->delete();
-    //     return redirect()->route('product.index');
-    // }
+    public function destroy(Product $product)
+    {
+        $product->delete();
+        return redirect()->route('product.index');
+    }
 
     // public function index_resource(): JsonResponse
     // {
