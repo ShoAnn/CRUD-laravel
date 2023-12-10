@@ -8,15 +8,23 @@ use Illuminate\Http\Request;
 use App\Models\ProductCategory;
 use App\Models\ProductInventory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class ProductController extends Controller
 {
     // show all products
-    public function index(): View
+    public function index(Request $request): View
     {
+        $search = $request->input('search');
+
+        $products = Product::with('inventory', 'image')
+            ->where('name', 'like', "%$search%")
+            ->orWhere('description', 'like', "%$search%")
+            ->paginate(10);
+
         return view('pages.product.index', [
-            'products' => Product::with('inventory', 'image')->paginate(10),
+            'products' => $products,
             'categories' => ProductCategory::all()
         ]);
     }
@@ -49,7 +57,7 @@ class ProductController extends Controller
         // store product images in product_images table
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
-                $path = $image->store('product_images', 'public');
+                $path = $image->store('product_images', 'azure');
                 $addImage = ProductImage::create([
                     'product_id' => $addProduct->id,
                     'name' => $path

@@ -117,7 +117,7 @@
                                                     @csrf
                                                     @method('DELETE')
                                                     <!-- Button trigger modal -->
-                                                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                    <button type="button" class="btn btn-danger" data-toggle="modal"
                                                         data-target="#confirmDelete">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
@@ -136,7 +136,9 @@
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    ...
+                                                                    <img src="{{ asset('storage/' . $image->name) }}"
+                                                                        alt="{{ $image->name }}"
+                                                                        class="card-img-top mb-2">
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary"
