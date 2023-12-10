@@ -14,10 +14,17 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 class ProductController extends Controller
 {
     // show all products
-    public function index(): View
+    public function index(Request $request): View
     {
+        $search = $request->input('search');
+
+        $products = Product::with('inventory', 'image')
+            ->where('name', 'like', "%$search%")
+            ->orWhere('description', 'like', "%$search%")
+            ->paginate(10);
+
         return view('pages.product.index', [
-            'products' => Product::with('inventory', 'image')->paginate(10),
+            'products' => $products,
             'categories' => ProductCategory::all()
         ]);
     }

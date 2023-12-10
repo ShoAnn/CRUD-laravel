@@ -32,6 +32,21 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <form action="{{ route('product.index') }}" method="GET">
+                                            <div class="input-group">
+                                                <input type="text" name="search" class="form-control"
+                                                    placeholder="Cari produk" value="{{ request('search') }}">
+                                                <div class="input-group-append">
+                                                    <button type="submit" class="btn btn-primary">
+                                                        <i class="fas fa-search"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
@@ -48,7 +63,6 @@
                                     <tbody>
                                         @foreach ($products as $product)
                                             <tr>
-
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $product->name }}</td>
                                                 @foreach ($categories as $category)
@@ -62,7 +76,7 @@
                                                 <td>
                                                     @foreach ($product->image as $image)
                                                         <img src="{{ asset('storage/' . $image->name) }}"
-                                                            alt="{{ $image->name }}" class="img-fluid pr-2 py-2"
+                                                            alt="{{ $image->name }}" class="img-fluid rounded mb-2"
                                                             width="80px">
                                                     @endforeach
                                                 </td>
@@ -72,58 +86,24 @@
                                                     <form action="{{ route('product.destroy', $product) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="button" class="btn btn-danger w-100"
-                                                            data-toggle="modal" data-target="#confirmDelete">
+                                                        <button type="submit" class="btn btn-danger w-100"
+                                                            onclick="alert('Apakah Anda yakin ingin menghapus produk : {{ $product->name }}?')">
                                                             <i class="fas fa-trash"></i>
                                                         </button>
-
-                                                        <!-- Modal -->
-                                                        <div class="modal fade" id="confirmDelete" tabindex="-1"
-                                                            role="dialog" aria-labelledby="confirmDeleteLabel"
-                                                            aria-hidden="true">
-                                                            <div class="modal-dialog" role="document">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="confirmDeleteLabel">
-                                                                            Konfirmasi Hapus data</h5>
-                                                                        <button type="button" class="close"
-                                                                            data-dismiss="modal" aria-label="Close">
-                                                                            <span aria-hidden="true">&times;</span>
-                                                                        </button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        {{ $product->name }}
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary"
-                                                                            data-dismiss="modal">Batal</button>
-                                                                        <button type="submit" class="btn btn-danger">
-                                                                            Hapus
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
                                                     </form>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
                             </div>
-                            <!-- /.card-body -->
                             <div class="card-footer">
                                 {{ $products->links() }}
                             </div>
                         </div>
-                        <!-- /.card -->
                     </div>
-                    <!-- /.col -->
                 </div>
-                <!-- /.row -->
             </div>
-            <!-- /.container-fluid -->
         </section>
-        <!-- /.content -->
     </div>
-    <!-- /.content-wrapper -->
 @endsection

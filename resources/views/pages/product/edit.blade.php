@@ -109,7 +109,7 @@
                                     <div class="col-md-3">
                                         <div class="card pt-2">
                                             <div class="card-body row justify-content-center py-1 px-2">
-                                                <img src="{{ url('https://laraveladminimages.blob.core.windows.net/images/' . $image->name) }}"
+                                                <img src="{{ asset('storage/' . $image->name) }}"
                                                     alt="{{ $image->name }}" class="card-img-top">
                                                 <form
                                                     action="{{ route('product.image.destroy', ['image' => $image->id]) }}"
@@ -117,7 +117,7 @@
                                                     @csrf
                                                     @method('DELETE')
                                                     <!-- Button trigger modal -->
-                                                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                    <button type="button" class="btn btn-danger" data-toggle="modal"
                                                         data-target="#confirmDelete">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
@@ -136,7 +136,9 @@
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    ...
+                                                                    <img src="{{ asset('storage/' . $image->name) }}"
+                                                                        alt="{{ $image->name }}"
+                                                                        class="card-img-top mb-2">
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary"
