@@ -105,11 +105,11 @@
                         </div>
                         <div class="card-body p-0">
                             <div class="row">
-                                @foreach ($product->images as $image)
+                                @foreach ($product->image as $image)
                                     <div class="col-md-3">
                                         <div class="card pt-2">
                                             <div class="card-body row justify-content-center py-1 px-2">
-                                                <img src="{{ asset('storage/' . $image->name) }}"
+                                                <img src="{{ url('https://laraveladminimages.blob.core.windows.net/images/' . $image->name) }}"
                                                     alt="{{ $image->name }}" class="card-img-top">
                                                 <form
                                                     action="{{ route('product.image.destroy', ['image' => $image->id]) }}"
