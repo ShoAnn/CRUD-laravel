@@ -105,7 +105,7 @@
                         </div>
                         <div class="card-body p-0">
                             <div class="row">
-                                @foreach ($product->images as $image)
+                                @foreach ($product->image as $image)
                                     <div class="col-md-3">
                                         <div class="card pt-2">
                                             <div class="card-body row justify-content-center py-1 px-2">
