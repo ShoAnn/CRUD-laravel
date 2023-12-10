@@ -15,7 +15,7 @@ class ProductSeeder extends Seeder
     public function run(): void
     {
         Product::factory()
-            ->count(10)
+            ->count(25)
             ->has(
                 ProductInventory::factory()->count(1),
                 'inventory'

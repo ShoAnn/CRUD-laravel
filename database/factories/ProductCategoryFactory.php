@@ -14,10 +14,22 @@ class ProductCategoryFactory extends Factory
      */
     public function definition(): array
     {
+        $categories = [
+            'Electronics',
+            'Clothing',
+            'Home & Kitchen',
+            'Beauty & Personal Care',
+            'Health & Household',
+            'Toys & Games',
+            'Books',
+            'Sports & Outdoors',
+            'Automotive',
+            'Baby',
+        ];
 
         return [
-            'name' => $this->faker->name(),
-            'description' => $this->faker->paragraph(),
+            'name' => $this->faker->unique()->randomElement($categories),
+            'description' => $this->faker->sentence(10),
         ];
     }
 }
