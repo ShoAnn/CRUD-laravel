@@ -72,38 +72,10 @@
                                                     <form action="{{ route('product.destroy', $product) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="button" class="btn btn-danger w-100"
-                                                            data-toggle="modal" data-target="#confirmDelete">
+                                                        <button type="submit" class="btn btn-danger w-100"
+                                                            onclick="return confirm('Apakah Anda yakin ingin menghapus {{ $product->name }}?')">
                                                             <i class="fas fa-trash"></i>
                                                         </button>
-
-                                                        <!-- Modal -->
-                                                        <div class="modal fade" id="confirmDelete" tabindex="-1"
-                                                            role="dialog" aria-labelledby="confirmDeleteLabel"
-                                                            aria-hidden="true">
-                                                            <div class="modal-dialog" role="document">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="confirmDeleteLabel">
-                                                                            Konfirmasi Hapus data</h5>
-                                                                        <button type="button" class="close"
-                                                                            data-dismiss="modal" aria-label="Close">
-                                                                            <span aria-hidden="true">&times;</span>
-                                                                        </button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        {{ $product->name }}
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary"
-                                                                            data-dismiss="modal">Batal</button>
-                                                                        <button type="submit" class="btn btn-danger">
-                                                                            Hapus
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
                                                     </form>
                                             </tr>
                                         @endforeach
