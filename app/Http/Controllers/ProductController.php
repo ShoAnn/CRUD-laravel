@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use App\Models\ProductCategory;
 use App\Models\ProductInventory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class ProductController extends Controller
@@ -31,11 +30,15 @@ class ProductController extends Controller
 
     public function add()
     {
+        $this->authorize('product_create');
+
         return view('pages.product.add', ['categories' => ProductCategory::all()]);
     }
 
     public function store(Request $request): RedirectResponse
     {
+        $this->authorize('product_create');
+
         $productData = $request->validate([
             'name' => 'required|max:255|min:5',
             'description' => 'required',
@@ -57,7 +60,7 @@ class ProductController extends Controller
         // store product images in product_images table
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
-                $path = $image->store('product_images', 'local');
+                $path = $image->store('product_images', 'public');
                 $addImage = ProductImage::create([
                     'product_id' => $addProduct->id,
                     'name' => $path
@@ -80,6 +83,8 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
+        $this->authorize('product_create');
+
         return view('pages.product.edit', [
             'product' => $product,
             'categories' => ProductCategory::all()
@@ -88,6 +93,8 @@ class ProductController extends Controller
 
     public function update(Request $request, Product $product)
     {
+        $this->authorize('product_create');
+
         $productData = $request->validate([
             'name' => 'required|max:255|min:5',
             'price' => 'required|numeric',
@@ -114,6 +121,8 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
+        $this->authorize('product_create');
+
         $product->delete();
         return redirect()->route('product.index');
     }

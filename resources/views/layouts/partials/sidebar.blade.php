@@ -16,7 +16,8 @@
             </div>
             <div class="info">
                 @auth
-                    <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+                    <span class="d-block">{{ Auth::user()->name }}</span>
+                    <span class="text-sm text-primary">{{ Auth::user()->is_admin ? 'Admin' : 'Not Admin' }}</span>
                 @endauth
             </div>
         </div>
@@ -32,6 +33,19 @@
                             Data Produk
                         </p>
                     </a>
+                </li>
+                @auth
+                    @if (Auth::user()->is_admin)
+                        <li class="nav-item mb-2">
+                            <a href="{{ route('user.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-user"></i>
+                                <p>
+                                    Data User
+                                </p>
+                            </a>
+                        </li>
+                    @endif
+                @endauth
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

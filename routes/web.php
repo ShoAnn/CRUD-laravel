@@ -38,6 +38,12 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 
+Route::middleware(['auth' => 'is_admin'])->group(function () {
+    Route::prefix('user')->group(function () {
+        Route::get('/', [UserController::class, 'index'])->name('user.index');
+    });
+});
+
 Route::get('/login', [UserController::class, 'login'])->name('login');
 Route::post('/authenticate', [UserController::class, 'authenticate'])->name('authenticate');
 Route::get('/register-form', [UserController::class, 'register'])->name('register-form');

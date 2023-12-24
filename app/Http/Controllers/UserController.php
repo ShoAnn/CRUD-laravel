@@ -4,10 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    // index - for admin
+    public function index(Request $request): View
+    {
+        $search = $request->input('search');
+
+        $users = User::where('name', 'like', "%$search%")
+            ->orWhere('email', 'like', "%$search%")
+            ->paginate(10);
+
+        return view('pages.admin.user.index', [
+            'users' => $users
+        ]);
+    }
+
     // show login form page
     public function login()
     {

@@ -12,14 +12,16 @@
                     <div class="col-sm-6">
                         <h1>Produk</h1>
                     </div>
-                    <div class="col-sm-6">
-                        <div class="float-right">
-                            <a href="{{ route('product.add') }}" class="btn btn-success">
-                                <i class="fas fa-plus-circle"></i>
-                                Tambah Produk
-                            </a>
+                    @can('product_create')
+                        <div class="col-sm-6">
+                            <div class="float-right">
+                                <a href="{{ route('product.add') }}" class="btn btn-success">
+                                    <i class="fas fa-plus-circle"></i>
+                                    Tambah Produk
+                                </a>
+                            </div>
                         </div>
-                    </div>
+                    @endcan
                 </div>
             </div><!-- /.container-fluid -->
         </section>
@@ -57,7 +59,9 @@
                                             <th>Harga</th>
                                             <th>Stok</th>
                                             <th>Image</th>
-                                            <th>Action</th>
+                                            @can('product_edit')
+                                                <th>Aksi</th>
+                                            @endcan
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -80,18 +84,23 @@
                                                             width="80px">
                                                     @endforeach
                                                 </td>
-                                                <td>
-                                                    <a href="{{ route('product.edit', $product) }}"
-                                                        class="btn btn-warning w-100 mb-2"><i class="fas fa-edit"></i></a>
-                                                    <form action="{{ route('product.destroy', $product) }}" method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
+                                                @can('product_edit')
+                                                    <td>
+                                                        <a href="{{ route('product.edit', $product) }}"
+                                                            class="btn btn-warning w-100 mb-2"><i class="fas fa-edit"></i></a>
+
                                                         <button type="submit" class="btn btn-danger w-100"
-                                                            onclick="alert('Apakah Anda yakin ingin menghapus produk : {{ $product->name }}?')">
+                                                            onclick="if(confirm('Apakah Anda yakin ingin menghapus produk : {{ $product->name }}?')) { document.getElementById('delete-form-{{ $product->id }}').submit(); return false; }">
                                                             <i class="fas fa-trash"></i>
                                                         </button>
-                                                    </form>
-                                                </td>
+                                                        <form id="delete-form-{{ $product->id }}"
+                                                            action="{{ route('product.destroy', $product) }}" method="POST"
+                                                            style="display: none;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                        </form>
+                                                    </td>
+                                                @endcan
                                             </tr>
                                         @endforeach
                                     </tbody>

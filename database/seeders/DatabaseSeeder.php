@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\User;
 use App\Models\ProductCategory;
 use App\Models\ProductDiscount;
 use Illuminate\Database\Seeder;
@@ -16,7 +17,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        User::create([
+            'name' => 'admin',
+            'email' => 'admin@admin.com',
+            'password' => bcrypt('admin'),
+            'is_admin' => true,
+        ]);
+
         $this->call([
             ProductCategorySeeder::class,
             ProductDiscountSeeder::class,
