@@ -20,6 +20,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::redirect('/dashboard', '/');
 
+    Route::middleware(['auth' => 'is_admin'])->group(function () {
+        Route::prefix('user')->group(function () {
+            Route::get('/', [UserController::class, 'index'])->name('user.index');
+            Route::get('/edit/{user}', [UserController::class, 'edit'])->name('user.edit');
+            Route::post('/update/{user}', [UserController::class, 'update'])->name('user.update');
+            Route::delete('/destroy/{user}', [UserController::class, 'destroy'])->name('user.destroy');
+        });
+    });
+
     Route::prefix('product')->group(function () {
         Route::get('/', [ProductController::class, 'index'])->name('product.index');
 
@@ -35,12 +44,6 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/store', [ProductImageController::class, 'store'])->name('product.image.store');
             Route::delete('/destroy/{image}', [ProductImageController::class, 'destroy'])->name('product.image.destroy');
         });
-    });
-});
-
-Route::middleware(['auth' => 'is_admin'])->group(function () {
-    Route::prefix('user')->group(function () {
-        Route::get('/', [UserController::class, 'index'])->name('user.index');
     });
 });
 

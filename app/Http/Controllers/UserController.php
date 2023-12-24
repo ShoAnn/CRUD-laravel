@@ -12,6 +12,8 @@ class UserController extends Controller
     // index - for admin
     public function index(Request $request): View
     {
+        $this->authorize('user_index');
+
         $search = $request->input('search');
 
         $users = User::where('name', 'like', "%$search%")
@@ -21,6 +23,44 @@ class UserController extends Controller
         return view('pages.admin.user.index', [
             'users' => $users
         ]);
+    }
+
+    // edit - for admin
+    public function edit(User $user): View
+    {
+        $this->authorize('user_edit');
+        return view('pages.admin.user.edit', [
+            'user' => $user
+        ]);
+    }
+
+    // update - for admin
+    public function update(Request $request, User $user)
+    {
+        $this->authorize('user_edit');
+        $formFields = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'is_admin' => 'required|boolean',
+            'updated_at' => now()
+        ]);
+        $update = $user->update($formFields);
+        if ($update) {
+            toast('Berhasil update user', 'success')->background('#050505')->width('24rem');
+            return redirect()->route('user.index');
+        }
+        toast('Gagal update user', 'error')->background('#050505')->width('24rem');
+        return back();
+    }
+
+    // delete - for admin
+    public function destroy(User $user)
+    {
+        $this->authorize('user_delete');
+        $user->delete();
+
+        toast('Berhasil hapus user', 'success')->background('#050505')->width('24rem');
+        return redirect()->route('user.index');
     }
 
     // show login form page
