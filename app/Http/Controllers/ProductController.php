@@ -57,7 +57,7 @@ class ProductController extends Controller
         // store product images in product_images table
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
-                $path = $image->store('product_images', 'azure');
+                $path = $image->store('product_images', 'local');
                 $addImage = ProductImage::create([
                     'product_id' => $addProduct->id,
                     'name' => $path
