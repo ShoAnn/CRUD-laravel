@@ -46,8 +46,6 @@
                                             <th>Nama</th>
                                             <th>email</th>
                                             <th>tgl register</th>
-                                            <th>Admin</th>
-                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -57,26 +55,6 @@
                                                 <td>{{ $user->name }}</td>
                                                 <td>{{ $user->email }}</td>
                                                 <td>{{ $user->created_at }}</td>
-                                                <td>
-                                                    @if ($user->is_admin)
-                                                        <span class="text-success">Ya</span>
-                                                    @else
-                                                        <span class="text-danger">Tidak</span>
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    <a href="{{ route('user.edit', $user) }}"
-                                                        class="btn btn-warning w-100 mb-2"><i class="fas fa-edit"></i></a>
-                                                    <button type="submit" class="btn btn-danger w-100"
-                                                        onclick="if(confirm('Apakah Anda yakin ingin menghapus produk : {{ $user->name }}?')) { document.getElementById('delete-form-{{ $user->id }}').submit(); return false; }">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                    <form id="delete-form-{{ $user->id }}"
-                                                        action="{{ route('user.destroy', $user) }}" method="POST"
-                                                        style="display: none;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                    </form>
                                             </tr>
                                         @endforeach
                                     </tbody>
