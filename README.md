@@ -78,16 +78,8 @@ These instructions will help you set up and run the project on your local machin
 
    Your application will be accessible at [http://localhost:8000](http://localhost:8000).
 
-## Usage
-
-1. Open the application in your web browser.
-2. Use it 😏
 
 ## Contributing
 
 If you'd like to contribute, please fork the repository and create a new branch. Pull requests are welcome!
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 ```
