@@ -18,8 +18,6 @@ These instructions will help you set up and run the project on your local machin
 
 - PHP >= 8.2
 - Composer
-- Node.js & npm
-- Laravel CLI
 
 ### Installation
 
